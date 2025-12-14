@@ -1,0 +1,10 @@
+Machine-learning model built to predict the priority fee needed to reach the 0.9-quantile position in Solana blocks for the ORCA SOL–USDC liquidity pool.
+The goal is to estimate the optimal fee that places a transaction early in the block without overpaying—crucial for short-lived arbitrage opportunities.
+
+The project uses a dataset of 100,000 Solana blocks extracted from Snowflake, enriched with 40 engineered features such as cross-pool price differentials,
+liquidity depth, congestion metrics, and seasonality derived from over 80 million historical blocks, as well as lagged quantile fees.
+All features were constructed from raw blockchain data using a 700-line SQL query built from scratch. The preprocessing workflow separated skewed
+and non-skewed variables, applying log + robust scaling to highly skewed features and Yeo–Johnson transformation to the rest.
+
+Models tested include Ridge, ElasticNet, Random Forest, and a Neural Network. Best performance reached an MAE of ~3,470 lamports,
+with cross-pool price differencials, liquidity depth, block congestion and lagged quantile fees emerging as the strongest predictors.
